@@ -34,7 +34,7 @@ export function AtomTrackLogo({ size = "md", showText = true, className = "" }: 
       {/* Text */}
       {showText && (
         <span className={`${s.text} font-bold tracking-tight text-[#0F172A] select-none`}>
-          Atom<span className="text-[#2563EB]">Track</span>
+          Atom<span className="text-[#EF5354]">Track</span>
         </span>
       )}
     </div>

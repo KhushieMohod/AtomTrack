@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
 
 export default function GlobalError({
   error,
@@ -12,12 +13,12 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-red-50/20 flex items-center justify-center p-4">
+      <body className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4">
         <div className="text-center max-w-md">
           <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-6">
-            <span className="text-4xl">⚠️</span>
+            <AlertTriangle className="w-10 h-10 text-red-600" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-800 mb-2">Something Went Wrong</h1>
+          <h1 className="text-2xl font-bold text-[#0F172A] mb-2">Something Went Wrong</h1>
           <p className="text-slate-500 text-sm leading-relaxed mb-6">
             An unexpected error occurred. This has been noted and we&apos;re working on it.
             Please try again or return to the home page.

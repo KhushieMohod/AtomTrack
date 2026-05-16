@@ -148,8 +148,7 @@ export function CompletionDashboard() {
                   employee,
                   hasSubmitted,
                   hasLocked,
-                  totalGoals,
-                  totalCheckIns,
+
                   quarterCheckIns,
                   latestActivity,
                   sheetStatus,

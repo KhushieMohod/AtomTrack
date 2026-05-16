@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAppState } from "@/context/app-context";
 import { AtomTrackLogo } from "@/components/layout/atomtrack-logo";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Bell, LogOut, Check, ExternalLink } from "lucide-react";
+import { Bell, LogOut, ExternalLink } from "lucide-react";
 
 const ROLE_LABELS: Record<string, string> = {
   employee: "Employee",
@@ -30,7 +29,6 @@ export function AppHeader() {
 
   const unreadCount = getUnreadCount();
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -61,12 +59,9 @@ export function AppHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#E2E8F0] bg-white">
       <div className="max-w-7xl mx-auto flex items-center justify-between h-14 px-6">
-        {/* Logo */}
         <AtomTrackLogo size="sm" />
 
-        {/* Right side */}
         <div className="flex items-center gap-3">
-          {/* Notification Bell */}
           <div className="relative" ref={dropdownRef}>
             <button
               id="notification-bell"
@@ -85,7 +80,6 @@ export function AppHeader() {
             {/* Dropdown */}
             {showNotifs && (
               <div className="absolute right-0 top-full mt-2 w-96 bg-white border border-[#E2E8F0] rounded-xl shadow-lg shadow-black/8 z-50 overflow-hidden">
-                {/* Header */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-[#E2E8F0]">
                   <span className="text-sm font-semibold text-[#0F172A]">Notifications</span>
                   {unreadCount > 0 && (
@@ -98,7 +92,6 @@ export function AppHeader() {
                   )}
                 </div>
 
-                {/* List */}
                 <div className="max-h-80 overflow-y-auto">
                   {userNotifs.length === 0 ? (
                     <div className="text-center py-10 text-sm text-[#94A3B8]">
@@ -119,7 +112,6 @@ export function AppHeader() {
                           }
                         }}
                       >
-                        {/* Indicator */}
                         <div className="mt-1.5 shrink-0">
                           {!n.read ? (
                             <div className="w-2 h-2 rounded-full bg-[#2563EB]" />
@@ -158,10 +150,8 @@ export function AppHeader() {
             )}
           </div>
 
-          {/* Separator */}
           <div className="w-px h-6 bg-[#E2E8F0]" />
 
-          {/* User info */}
           <div className="text-right hidden sm:block">
             <p className="text-sm font-medium text-[#0F172A]">{currentUser.name}</p>
             <p className="text-xs text-[#94A3B8]">{ROLE_LABELS[currentUser.role]}</p>

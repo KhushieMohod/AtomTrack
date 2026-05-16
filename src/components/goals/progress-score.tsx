@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { GoalSheet, GoalScore } from "@/types";
+import { GoalSheet } from "@/types";
 import { useAppState } from "@/context/app-context";
 import { computeSheetScores } from "@/lib/scoring";
 import { Badge } from "@/components/ui/badge";
@@ -176,10 +176,10 @@ export function ProgressScoreCard({ sheet }: ProgressScoreCardProps) {
         <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
           <p className="text-xs font-medium text-slate-500 mb-2">Scoring Formulas</p>
           <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-400">
-            <span>📈 Numeric/Percentage: Actual ÷ Target</span>
-            <span>📅 Timeline: Deadline comparison</span>
-            <span>🎯 Zero-based: 0 = 100%, else 0%</span>
-            <span>⚖️ Weighted by goal percentage</span>
+            <span>Min (Numeric/Percentage): Actual / Target</span>
+            <span>Timeline: Deadline comparison</span>
+            <span>Zero-based: 0 = 100%, else 0%</span>
+            <span>Weighted by goal percentage</span>
           </div>
         </div>
       </CardContent>

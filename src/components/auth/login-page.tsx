@@ -88,6 +88,17 @@ export default function LoginPage() {
     setError("");
   };
 
+  const handleSsoLogin = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const result = loginWithEmail("khushie@atomtrack.com", "Demo@123");
+      if (result.success) {
+        router.push("/employee");
+      }
+      setIsLoading(false);
+    }, 600);
+  };
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
       {/* Top Navbar */}
@@ -271,7 +282,7 @@ export default function LoginPage() {
                   id="sso-btn"
                   variant="outline"
                   className="w-full h-10 border-[#E2E8F0] hover:bg-[#F8FAFC] cursor-pointer rounded-lg"
-                  onClick={() => setError("Microsoft Entra ID SSO integration is available in the enterprise plan.")}
+                  onClick={handleSsoLogin}
                 >
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 21 21" fill="none">
                     <rect x="1" y="1" width="9" height="9" fill="#F25022" />

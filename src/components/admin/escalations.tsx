@@ -96,6 +96,7 @@ export function EscalationsView() {
 
   const escalations = useMemo<EscalationEntry[]>(() => {
     const entries: EscalationEntry[] = [];
+    // eslint-disable-next-line react-hooks/purity
     const now = Date.now();
 
     // Rule 1: Goal Submission Overdue
