@@ -1,38 +1,134 @@
-# AtomTrack - Goal Setting & Tracking Portal
+# ⚛️ AtomTrack — Performance Goal Management System
 
-## Background & Problem Context
-Organizations that rely on manual or fragmented goal-tracking methods often struggle with alignment, visibility, and accountability [1]. Spreadsheets, emails, and offline review cycles create blind spots — managers cannot monitor team progress in real time, employees lack clarity on how their work connects to organizational priorities, and HR teams are left piecing together data at appraisal time [1]. 
+A professional, human-centric performance management web application built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS 4**. AtomTrack enables organizations to define, track, and approve employee objectives through a structured quarterly appraisal cycle.
 
-AtomTrack is a structured, digital Goal Setting & Tracking Portal built for the **AtomQuest Hackathon 1.0** to eliminate these pain points [1, 2]. The system supports the full lifecycle of employee goals — from creation and alignment to quarterly check-ins and performance visibility — ensuring the process is intuitive, reliable, and audit-ready [2].
+---
 
-## Tech Stack & Architecture
-* **Frontend/Backend:** Next.js (React)
-* **Styling:** Tailwind CSS 
-* **Deployment:** Vercel (Optimized for zero-cost, high-efficiency hosting) [3]
-* **Accessibility:** Web-browser accessible portal (no desktop-only apps) [4].
+## 🚀 Quick Start
 
-## Core Features & Roles
-The portal supports three distinct user roles with clearly differentiated capabilities [5]:
-1. **Employee:** Can draft goals, enter quarterly achievements, and update progress statuses [5].
-2. **Manager (L1):** Can review and approve goals, conduct quarterly check-ins, and log feedback [5].
-3. **Admin / HR:** Can configure cycles, manage the org hierarchy, oversee completion rates, and unlock goals [6].
+```bash
+# Clone the repository
+git clone https://github.com/<your-username>/AtomTrack.git
+cd AtomTrack/AtomTrack
 
-### System Workflow
-* **Phase 1 (Goal Setting):** Employees define Goal Title, Thrust Area, Unit of Measurement (Numeric, %, Timeline, or Zero-based), Target, and Weightage [7]. The system strictly enforces that total weightage equals 100%, each goal has a minimum of 10% weightage, and no employee exceeds 8 goals [7]. 
-* **Approval & Locking:** Managers review, inline edit, and approve goals, locking them from further edits without Admin intervention [7]. Admins/managers can also push shared departmental KPIs [7].
-* **Phase 2 (Achievement Tracking):** Employees log Actual Achievement against Planned Targets during specific quarterly windows (Q1, Q2, Q3, Q4/Annual) [5, 8, 9]. 
-* **Scoring Formulas:** System-computed progress scores are calculated automatically using Min, Max, Timeline, and Zero-based formulas [8, 9].
+# Install dependencies
+npm install
 
-## Reporting & Governance
-* **Achievement Report:** Exportable (CSV / Excel) showing Planned vs. Actual data [6].
-* **Completion Dashboard:** Real-time view of check-in completions [6].
-* **Audit Trail:** Logs all post-lock goal changes (who, what, when) [6].
+# Start development server
+npm run dev
+```
 
-## Setup & Demo Instructions
-1. Clone the repository.
-2. Run `npm install` and then `npm run dev`.
-3. Navigate to `http://localhost:3000`.
-4. Switch between user journeys using the following mock credentials [10]:
-   - **Employee:** `emp@atomtrack.com` / `password`
-   - **Manager:** `mgr@atomtrack.com` / `password`
-   - **Admin:** `admin@atomtrack.com` / `password`
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 🔑 Demo Credentials
+
+This is a demo environment with mock authentication. Click any role card on the login page:
+
+| Role | Name | Email |
+|------|------|-------|
+| **Employee** | Priya Sharma | priya.sharma@atomtrack.io |
+| **Manager (L1)** | Rajesh Kumar | rajesh.kumar@atomtrack.io |
+| **Admin / HR** | Anita Desai | anita.desai@atomtrack.io |
+
+---
+
+## ✨ Features
+
+### Phase 1 — Goal Creation & Approval
+- **Employee Portal**: Create and submit goal sheets with up to 8 goals
+- **Strict Validation**: Total weightage = 100%, minimum 10% per goal, max 8 goals
+- **Manager Review**: Inline editing of targets and weightages
+- **Approval Flow**: Approve & lock goals, or return for rework with feedback
+- **Shared KPIs**: Admin can push departmental goals to employees
+
+### Phase 2 — Achievement Tracking
+- **Quarterly Check-ins**: Log actual achievement vs. planned targets
+- **Progress Scoring**: Automated scoring with 4 formula types (Min, Max, Timeline, Zero-based)
+- **Manager Comments**: Structured feedback on quarterly performance
+- **Quarter Windows**: System-enforced active/inactive periods
+
+### Phase 3 — Reporting & Governance
+- **Achievement Report**: Export Planned vs. Actual data as CSV
+- **Completion Dashboard**: Real-time view of employee & manager check-in status
+- **Audit Trail**: Complete log of post-lock goal changes (who, what, when)
+- **Architecture Diagram**: Interactive system architecture visualization
+- **Error Handling**: Custom 404 page, global error boundary, graceful edge cases
+
+---
+
+## 🏗️ Architecture
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── page.tsx            # Login (role selection)
+│   ├── employee/           # Employee dashboard
+│   ├── manager/            # Manager dashboard
+│   ├── admin/              # Admin dashboard (6 tabs)
+│   ├── not-found.tsx       # Custom 404
+│   └── global-error.tsx    # Error boundary
+├── components/
+│   ├── auth/               # Login page
+│   ├── layout/             # Header, Logo
+│   ├── goals/              # Goal form, review, check-ins, scoring
+│   ├── admin/              # Reports, audit log, architecture
+│   └── ui/                 # shadcn/ui primitives
+├── context/                # React Context (global state)
+├── hooks/                  # Auth guard hook
+├── lib/                    # Mock data, scoring, validation, utils
+└── types/                  # TypeScript definitions
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| Next.js | 16.2.6 | Framework (App Router) |
+| React | 19.2.4 | UI Library |
+| TypeScript | 5.x | Type Safety |
+| Tailwind CSS | 4.x | Styling |
+| shadcn/ui | 4.7.0 | UI Components |
+| Sonner | 2.x | Toast Notifications |
+| Lucide React | 1.x | Icons |
+
+---
+
+## 📦 Deployment
+
+### Push to GitHub
+
+```bash
+cd AtomTrack
+git add -A
+git commit -m "feat: complete AtomTrack with all 3 phases"
+git branch -M main
+git remote add origin https://github.com/<your-username>/AtomTrack.git
+git push -u origin main
+```
+
+### Deploy to Vercel
+
+```bash
+# Option 1: Vercel CLI
+npm i -g vercel
+cd AtomTrack
+vercel --prod
+
+# Option 2: Connect via Vercel Dashboard
+# 1. Go to https://vercel.com/new
+# 2. Import your GitHub repository
+# 3. Set Root Directory to "AtomTrack"
+# 4. Click Deploy
+```
+
+> **Important**: Set the root directory to `AtomTrack` (the inner folder containing `package.json`) when deploying.
+
+---
+
+## 📄 License
+
+This project was built for the Hackathon demonstration. MIT License.

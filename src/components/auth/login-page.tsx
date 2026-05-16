@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAppState } from "@/context/app-context";
+import { AtomTrackLogo } from "@/components/layout/atomtrack-logo";
 import { Role } from "@/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -51,19 +52,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/40 flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-200">
-              <span className="text-white font-bold text-lg">A</span>
-            </div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-              Atom<span className="text-blue-600">Track</span>
-            </h1>
+            <AtomTrackLogo size="xl" />
           </div>
-          <p className="text-slate-500 text-lg max-w-md mx-auto">
+          <p className="text-slate-500 text-lg max-w-md mx-auto mt-3">
             Performance Goal Management System
           </p>
           <p className="text-slate-400 text-sm mt-2">
@@ -118,8 +114,17 @@ export default function LoginPage() {
           })}
         </div>
 
+        {/* Demo Credentials */}
+        <div className="mt-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-lg">
+            <span className="text-xs text-indigo-600">🔑</span>
+            <span className="text-xs text-indigo-600 font-medium">Demo Environment</span>
+            <span className="text-xs text-indigo-500">— Click any role card to sign in instantly</span>
+          </div>
+        </div>
+
         {/* Footer */}
-        <p className="text-center text-xs text-slate-400 mt-10">
+        <p className="text-center text-xs text-slate-400 mt-4">
           This is a demonstration environment with mock authentication.
         </p>
       </div>

@@ -5,6 +5,8 @@ import { useAppState } from "@/context/app-context";
 import { useAuthGuard } from "@/hooks/use-auth-guard";
 import { AppHeader } from "@/components/layout/app-header";
 import { GoalForm } from "@/components/goals/goal-form";
+import { QuarterlyCheckInForm } from "@/components/goals/quarterly-checkin";
+import { ProgressScoreCard } from "@/components/goals/progress-score";
 import { Goal, GoalSheet } from "@/types";
 import { generateId } from "@/lib/validations";
 import { Badge } from "@/components/ui/badge";
@@ -37,21 +39,32 @@ const STATUS_LABELS: Record<string, string> = {
 
 export default function EmployeeDashboard() {
   const { isReady } = useAuthGuard("employee");
-  const { currentUser, addGoalSheet, getSheetsByEmployee, updateGoalSheet } =
-    useAppState();
+  const {
+    currentUser,
+    addGoalSheet,
+    getSheetsByEmployee,
+    updateGoalSheet,
+    getSharedGoalsByEmployee,
+    addAuditEntry,
+  } = useAppState();
   const [activeTab, setActiveTab] = useState("create");
   const [editingSheet, setEditingSheet] = useState<GoalSheet | null>(null);
 
   if (!isReady || !currentUser) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center">
-        <div className="animate-pulse text-slate-400">Loading...</div>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+          <p className="text-sm text-slate-400 animate-pulse">Loading employee dashboard...</p>
+        </div>
       </div>
     );
   }
 
   const mySheets = getSheetsByEmployee(currentUser.id);
   const reworkSheets = mySheets.filter((s) => s.status === "rework");
+  const lockedSheets = mySheets.filter((s) => s.status === "locked");
+  const sharedGoals = getSharedGoalsByEmployee(currentUser.id);
 
   const handleSubmit = (goals: Goal[]) => {
     if (editingSheet) {
@@ -62,6 +75,19 @@ export default function EmployeeDashboard() {
         submittedAt: new Date().toISOString(),
         managerRemarks: undefined,
       });
+
+      // Log to audit trail
+      addAuditEntry({
+        userId: currentUser.id,
+        userName: currentUser.name,
+        userRole: currentUser.role,
+        action: "goal_resubmitted",
+        entityType: "goal_sheet",
+        entityId: editingSheet.id,
+        description: `Goal sheet resubmitted after rework`,
+        details: { employeeName: currentUser.name },
+      });
+
       setEditingSheet(null);
       toast.success("Goal sheet re-submitted successfully!");
     } else {
@@ -75,6 +101,19 @@ export default function EmployeeDashboard() {
         submittedAt: new Date().toISOString(),
       };
       addGoalSheet(newSheet);
+
+      // Log to audit trail
+      addAuditEntry({
+        userId: currentUser.id,
+        userName: currentUser.name,
+        userRole: currentUser.role,
+        action: "goal_submitted",
+        entityType: "goal_sheet",
+        entityId: newSheet.id,
+        description: `Goal sheet submitted for approval`,
+        details: { employeeName: currentUser.name },
+      });
+
       toast.success("Goal sheet submitted successfully!");
     }
     setActiveTab("history");
@@ -98,6 +137,35 @@ export default function EmployeeDashboard() {
             Define your performance goals for the current appraisal cycle.
           </p>
         </div>
+
+        {/* Shared Goals Notification */}
+        {sharedGoals.length > 0 && (
+          <Card className="mb-6 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50/40">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm font-semibold text-amber-800">
+                  🏢 Departmental KPIs Assigned to You
+                </span>
+                <Badge variant="outline" className="text-xs bg-amber-100 text-amber-700 border-amber-200">
+                  {sharedGoals.length}
+                </Badge>
+              </div>
+              <div className="space-y-1.5">
+                {sharedGoals.map((sg) => (
+                  <div key={sg.id} className="flex items-center justify-between text-sm">
+                    <span className="text-amber-700">{sg.title}</span>
+                    <span className="text-xs text-amber-500">
+                      Target: {sg.target} · Default: {sg.defaultWeightage}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-amber-500 mt-2">
+                These goals are read-only — you can only adjust the weightage when included in your sheet.
+              </p>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Rework Notification */}
         {reworkSheets.length > 0 && (
@@ -135,6 +203,11 @@ export default function EmployeeDashboard() {
             <TabsTrigger value="history" id="tab-history" className="cursor-pointer">
               My Submissions ({mySheets.length})
             </TabsTrigger>
+            {lockedSheets.length > 0 && (
+              <TabsTrigger value="checkins" id="tab-checkins" className="cursor-pointer">
+                Check-ins &amp; Scores
+              </TabsTrigger>
+            )}
           </TabsList>
 
           <TabsContent value="create">
@@ -149,6 +222,11 @@ export default function EmployeeDashboard() {
             {mySheets.length === 0 ? (
               <Card className="bg-white border border-slate-200">
                 <CardContent className="py-12 text-center">
+                  <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </div>
                   <p className="text-slate-400 text-lg">No goal sheets submitted yet.</p>
                   <p className="text-slate-400 text-sm mt-1">
                     Switch to the &quot;Create Goal Sheet&quot; tab to get started.
@@ -198,6 +276,11 @@ export default function EmployeeDashboard() {
                               <span className="font-medium text-slate-700">
                                 {g.title}
                               </span>
+                              {g.isShared && (
+                                <Badge variant="outline" className="text-xs bg-amber-50 text-amber-600 border-amber-200">
+                                  KPI
+                                </Badge>
+                              )}
                             </div>
                             <div className="flex items-center gap-4 text-slate-500">
                               <span className="text-xs">{g.thrustArea}</span>
@@ -235,6 +318,19 @@ export default function EmployeeDashboard() {
               </div>
             )}
           </TabsContent>
+
+          {lockedSheets.length > 0 && (
+            <TabsContent value="checkins">
+              <div className="space-y-6">
+                {lockedSheets.map((sheet) => (
+                  <div key={sheet.id} className="space-y-6">
+                    <ProgressScoreCard sheet={sheet} />
+                    <QuarterlyCheckInForm sheet={sheet} />
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          )}
         </Tabs>
       </main>
     </div>

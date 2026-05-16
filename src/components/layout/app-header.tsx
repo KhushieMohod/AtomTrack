@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAppState } from "@/context/app-context";
+import { AtomTrackLogo } from "@/components/layout/atomtrack-logo";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -32,14 +33,7 @@ export function AppHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-6">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-sm">
-            <span className="text-white font-bold text-sm">A</span>
-          </div>
-          <span className="text-xl font-bold tracking-tight text-slate-900">
-            Atom<span className="text-blue-600">Track</span>
-          </span>
-        </div>
+        <AtomTrackLogo size="sm" />
 
         {/* User info */}
         <div className="flex items-center gap-4">
