@@ -21,13 +21,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const UNITS: UnitOfMeasurement[] = ["Numeric", "Percentage", "Timeline", "Zero-based"];
+const UNITS: UnitOfMeasurement[] = ["Numeric", "Numeric (Max)", "Percentage", "Timeline", "Zero-based"];
 
 const UNIT_HELP: Record<UnitOfMeasurement, string> = {
-  Numeric: "e.g. 5 clients, 10 modules",
-  Percentage: "e.g. 15%, 80%",
+  Numeric: "Min formula (Higher is better) - e.g. 5 clients",
+  "Numeric (Max)": "Max formula (Lower is better) - e.g. Max 2 bugs",
+  Percentage: "Min formula - e.g. 15%, 80%",
   Timeline: "e.g. Q3 2026, Dec 2026",
-  "Zero-based": "e.g. Certified, Completed",
+  "Zero-based": "e.g. Certified, 0 errors",
 };
 
 const MAX_GOALS = 8;
@@ -204,7 +205,7 @@ export function GoalForm({ onSubmit, initialGoals, isReadOnly = false }: GoalFor
                 placeholder="e.g. Increase quarterly sales revenue by 15%"
                 value={goal.title}
                 onChange={(e) => updateGoal(index, "title", e.target.value)}
-                disabled={isReadOnly}
+                disabled={isReadOnly || goal.isShared}
                 className="mt-1.5"
               />
             </div>
@@ -220,7 +221,7 @@ export function GoalForm({ onSubmit, initialGoals, isReadOnly = false }: GoalFor
                   placeholder="e.g. Revenue Growth, Skill Development"
                   value={goal.thrustArea}
                   onChange={(e) => updateGoal(index, "thrustArea", e.target.value)}
-                  disabled={isReadOnly}
+                  disabled={isReadOnly || goal.isShared}
                   className="mt-1.5"
                 />
               </div>
@@ -230,8 +231,8 @@ export function GoalForm({ onSubmit, initialGoals, isReadOnly = false }: GoalFor
                 </Label>
                 <Select
                   value={goal.unit}
-                  onValueChange={(val) => { if (val) updateGoal(index, "unit", val); }}
-                  disabled={isReadOnly}
+                  onValueChange={(val) => { if (val) updateGoal(index, "unit", val as UnitOfMeasurement); }}
+                  disabled={isReadOnly || goal.isShared}
                 >
                   <SelectTrigger id={`unit-${index}`} className="w-full mt-1.5">
                     <SelectValue placeholder="Select unit" />
@@ -259,7 +260,7 @@ export function GoalForm({ onSubmit, initialGoals, isReadOnly = false }: GoalFor
                   placeholder={UNIT_HELP[goal.unit]}
                   value={goal.target}
                   onChange={(e) => updateGoal(index, "target", e.target.value)}
-                  disabled={isReadOnly}
+                  disabled={isReadOnly || goal.isShared}
                   className="mt-1.5"
                 />
               </div>

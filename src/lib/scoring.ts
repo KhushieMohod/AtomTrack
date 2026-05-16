@@ -21,6 +21,9 @@ export function computeGoalScore(
     case "Percentage":
       return computeMinScore(target, actual);
 
+    case "Numeric (Max)":
+      return computeMaxScore(target, actual);
+
     case "Timeline":
       return computeTimelineScore(completionDate, deadline);
 
@@ -154,7 +157,29 @@ export function getCurrentQuarter(): { quarter: "Q1" | "Q2" | "Q3" | "Q4"; year:
 }
 
 /**
- * Check if a specific quarter window is currently active.
+ * Check if a specific quarter reporting window is strictly open based on the current month.
+ * Q1: July (6), Q2: October (9), Q3: January (0), Q4: March (2) / April (3)
+ */
+export function isCheckInWindowOpen(quarter: "Q1" | "Q2" | "Q3" | "Q4"): boolean {
+  const month = new Date().getMonth(); // 0-indexed
+  switch (quarter) {
+    case "Q1": return month === 6; // July
+    case "Q2": return month === 9; // October
+    case "Q3": return month === 0; // January
+    case "Q4": return month === 2 || month === 3; // March or April
+    default: return false;
+  }
+}
+
+/**
+ * Check if the goal setting window is open (May).
+ */
+export function isGoalSettingWindowOpen(): boolean {
+  return new Date().getMonth() === 4; // May
+}
+
+/**
+ * Legacy check for current quarter (kept for UI labels).
  */
 export function isQuarterActive(quarter: "Q1" | "Q2" | "Q3" | "Q4"): boolean {
   const current = getCurrentQuarter();

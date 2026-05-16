@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { GoalSheet, QuarterlyCheckIn, Quarter, CheckInStatus } from "@/types";
 import { useAppState } from "@/context/app-context";
 import { generateId } from "@/lib/validations";
-import { getCurrentQuarter, isQuarterActive, getQuarterLabel } from "@/lib/scoring";
+import { getCurrentQuarter, isCheckInWindowOpen, getQuarterLabel } from "@/lib/scoring";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,7 +58,7 @@ export function QuarterlyCheckInForm({ sheet }: QuarterlyCheckInFormProps) {
     );
   };
 
-  const isActiveQuarter = isQuarterActive(selectedQuarter);
+  const isActiveQuarter = isCheckInWindowOpen(selectedQuarter);
 
   const handleSaveCheckIn = (
     goalId: string,
@@ -123,7 +123,7 @@ export function QuarterlyCheckInForm({ sheet }: QuarterlyCheckInFormProps) {
         {/* Quarter Selector */}
         <div className="flex items-center gap-2 mt-4">
           {QUARTERS.map((q) => {
-            const isActive = isQuarterActive(q);
+            const isActive = isCheckInWindowOpen(q);
             const isCurrent = q === selectedQuarter;
             return (
               <button

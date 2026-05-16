@@ -13,7 +13,7 @@ export interface User {
 
 // ─── Goal Types ──────────────────────────────────────────────────────────────
 
-export type UnitOfMeasurement = "Numeric" | "Percentage" | "Timeline" | "Zero-based";
+export type UnitOfMeasurement = "Numeric" | "Numeric (Max)" | "Percentage" | "Timeline" | "Zero-based";
 
 export type GoalStatus = "draft" | "submitted" | "rework" | "approved" | "locked";
 
