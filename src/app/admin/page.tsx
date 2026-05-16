@@ -9,6 +9,7 @@ import { AchievementReport } from "@/components/admin/achievement-report";
 import { CompletionDashboard } from "@/components/admin/completion-dashboard";
 import { AuditLogView } from "@/components/admin/audit-log";
 import { AnalyticsDashboard } from "@/components/admin/analytics-dashboard";
+import { EscalationsView } from "@/components/admin/escalations";
 import { ArchitectureDiagram } from "@/components/admin/architecture-diagram";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -46,10 +47,10 @@ export default function AdminDashboard() {
 
   if (!isReady || !currentUser) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/20 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-2 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
-          <p className="text-sm text-slate-400 animate-pulse">Loading admin dashboard...</p>
+          <div className="w-8 h-8 border-2 border-[#E2E8F0] border-t-[#2563EB] rounded-full animate-spin" />
+          <p className="text-sm text-[#94A3B8]">Loading...</p>
         </div>
       </div>
     );
@@ -92,7 +93,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/20">
+    <div className="min-h-screen bg-[#F8FAFC]">
       <AppHeader />
       <main className="max-w-6xl mx-auto px-6 py-8">
         {/* Welcome */}
@@ -138,7 +139,7 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs defaultValue="overview">
-          <TabsList className="mb-6 bg-white border border-slate-200 flex-wrap h-auto gap-1 p-1">
+          <TabsList className="mb-6 bg-white border border-[#E2E8F0] flex-wrap h-auto gap-1 p-1">
             <TabsTrigger value="overview" id="tab-overview" className="cursor-pointer text-xs sm:text-sm">
               All Sheets
             </TabsTrigger>
@@ -149,10 +150,13 @@ export default function AdminDashboard() {
               Achievement Report
             </TabsTrigger>
             <TabsTrigger value="completion" id="tab-completion" className="cursor-pointer text-xs sm:text-sm">
-              Completion Dashboard
+              Completion
             </TabsTrigger>
             <TabsTrigger value="analytics" id="tab-analytics" className="cursor-pointer text-xs sm:text-sm">
-              📊 Analytics
+              Analytics
+            </TabsTrigger>
+            <TabsTrigger value="escalations" id="tab-escalations" className="cursor-pointer text-xs sm:text-sm">
+              Escalations
             </TabsTrigger>
             <TabsTrigger value="audit" id="tab-audit" className="cursor-pointer text-xs sm:text-sm">
               Audit Trail
@@ -293,6 +297,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="analytics">
             <AnalyticsDashboard />
+          </TabsContent>
+
+          <TabsContent value="escalations">
+            <EscalationsView />
           </TabsContent>
 
           <TabsContent value="audit">

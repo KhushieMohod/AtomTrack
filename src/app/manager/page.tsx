@@ -22,10 +22,10 @@ export default function ManagerDashboard() {
 
   if (!isReady || !currentUser) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/20 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-2 border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
-          <p className="text-sm text-slate-400 animate-pulse">Loading manager dashboard...</p>
+          <div className="w-8 h-8 border-2 border-[#E2E8F0] border-t-[#2563EB] rounded-full animate-spin" />
+          <p className="text-sm text-[#94A3B8]">Loading...</p>
         </div>
       </div>
     );
@@ -93,7 +93,7 @@ export default function ManagerDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/20">
+    <div className="min-h-screen bg-[#F8FAFC]">
       <AppHeader />
       <main className="max-w-6xl mx-auto px-6 py-8">
         {/* Welcome */}
@@ -129,7 +129,7 @@ export default function ManagerDashboard() {
         </div>
 
         <Tabs defaultValue="pending">
-          <TabsList className="mb-6 bg-white border border-slate-200">
+          <TabsList className="mb-6 bg-white border border-[#E2E8F0]">
             <TabsTrigger value="pending" id="tab-pending" className="cursor-pointer">
               Pending Review ({pendingSheets.length})
             </TabsTrigger>

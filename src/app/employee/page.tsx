@@ -52,10 +52,10 @@ export default function EmployeeDashboard() {
 
   if (!isReady || !currentUser) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
-          <p className="text-sm text-slate-400 animate-pulse">Loading employee dashboard...</p>
+          <div className="w-8 h-8 border-2 border-[#E2E8F0] border-t-[#2563EB] rounded-full animate-spin" />
+          <p className="text-sm text-[#94A3B8]">Loading...</p>
         </div>
       </div>
     );
@@ -125,7 +125,7 @@ export default function EmployeeDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+    <div className="min-h-screen bg-[#F8FAFC]">
       <AppHeader />
       <main className="max-w-5xl mx-auto px-6 py-8">
         {/* Welcome */}
@@ -140,13 +140,13 @@ export default function EmployeeDashboard() {
 
         {/* Shared Goals Notification */}
         {sharedGoals.length > 0 && (
-          <Card className="mb-6 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50/40">
+          <Card className="mb-6 border-[#E2E8F0] bg-white">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-semibold text-amber-800">
-                  🏢 Departmental KPIs Assigned to You
+                <span className="text-sm font-semibold text-[#0F172A]">
+                  Departmental KPIs Assigned to You
                 </span>
-                <Badge variant="outline" className="text-xs bg-amber-100 text-amber-700 border-amber-200">
+                <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
                   {sharedGoals.length}
                 </Badge>
               </div>
@@ -174,7 +174,7 @@ export default function EmployeeDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold text-amber-800">
-                    ⚠️ You have {reworkSheets.length} goal sheet(s) returned for rework
+                    {reworkSheets.length} goal sheet(s) returned for rework
                   </p>
                   {reworkSheets[0].managerRemarks && (
                     <p className="text-xs text-amber-600 mt-1">
@@ -196,7 +196,7 @@ export default function EmployeeDashboard() {
         )}
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="mb-6 bg-white border border-slate-200">
+          <TabsList className="mb-6 bg-white border border-[#E2E8F0]">
             <TabsTrigger value="create" id="tab-create" className="cursor-pointer">
               {editingSheet ? "Revise Goal Sheet" : "Create Goal Sheet"}
             </TabsTrigger>
