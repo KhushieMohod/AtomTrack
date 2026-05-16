@@ -2,6 +2,8 @@
 
 A professional, enterprise-grade performance management web application built with **React/Next.js**, **Node.js/Express**, and **PostgreSQL**. AtomTrack enables organizations to define, track, and approve employee objectives through a structured quarterly appraisal cycle.
 
+**🌐 Live Demo:** [https://atomtrack.vercel.app/](https://atomtrack.vercel.app/)
+
 ---
 
 ## Features
