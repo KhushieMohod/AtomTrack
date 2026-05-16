@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AtomTrack - Goal Setting & Tracking Portal
 
-## Getting Started
+## Background & Problem Context
+Organizations that rely on manual or fragmented goal-tracking methods often struggle with alignment, visibility, and accountability [1]. Spreadsheets, emails, and offline review cycles create blind spots — managers cannot monitor team progress in real time, employees lack clarity on how their work connects to organizational priorities, and HR teams are left piecing together data at appraisal time [1]. 
 
-First, run the development server:
+AtomTrack is a structured, digital Goal Setting & Tracking Portal built for the **AtomQuest Hackathon 1.0** to eliminate these pain points [1, 2]. The system supports the full lifecycle of employee goals — from creation and alignment to quarterly check-ins and performance visibility — ensuring the process is intuitive, reliable, and audit-ready [2].
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack & Architecture
+* **Frontend/Backend:** Next.js (React)
+* **Styling:** Tailwind CSS 
+* **Deployment:** Vercel (Optimized for zero-cost, high-efficiency hosting) [3]
+* **Accessibility:** Web-browser accessible portal (no desktop-only apps) [4].
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Core Features & Roles
+The portal supports three distinct user roles with clearly differentiated capabilities [5]:
+1. **Employee:** Can draft goals, enter quarterly achievements, and update progress statuses [5].
+2. **Manager (L1):** Can review and approve goals, conduct quarterly check-ins, and log feedback [5].
+3. **Admin / HR:** Can configure cycles, manage the org hierarchy, oversee completion rates, and unlock goals [6].
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### System Workflow
+* **Phase 1 (Goal Setting):** Employees define Goal Title, Thrust Area, Unit of Measurement (Numeric, %, Timeline, or Zero-based), Target, and Weightage [7]. The system strictly enforces that total weightage equals 100%, each goal has a minimum of 10% weightage, and no employee exceeds 8 goals [7]. 
+* **Approval & Locking:** Managers review, inline edit, and approve goals, locking them from further edits without Admin intervention [7]. Admins/managers can also push shared departmental KPIs [7].
+* **Phase 2 (Achievement Tracking):** Employees log Actual Achievement against Planned Targets during specific quarterly windows (Q1, Q2, Q3, Q4/Annual) [5, 8, 9]. 
+* **Scoring Formulas:** System-computed progress scores are calculated automatically using Min, Max, Timeline, and Zero-based formulas [8, 9].
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Reporting & Governance
+* **Achievement Report:** Exportable (CSV / Excel) showing Planned vs. Actual data [6].
+* **Completion Dashboard:** Real-time view of check-in completions [6].
+* **Audit Trail:** Logs all post-lock goal changes (who, what, when) [6].
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Setup & Demo Instructions
+1. Clone the repository.
+2. Run `npm install` and then `npm run dev`.
+3. Navigate to `http://localhost:3000`.
+4. Switch between user journeys using the following mock credentials [10]:
+   - **Employee:** `emp@atomtrack.com` / `password`
+   - **Manager:** `mgr@atomtrack.com` / `password`
+   - **Admin:** `admin@atomtrack.com` / `password`
