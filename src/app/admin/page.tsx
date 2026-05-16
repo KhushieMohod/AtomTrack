@@ -8,6 +8,7 @@ import { SharedGoalForm } from "@/components/goals/shared-goal-form";
 import { AchievementReport } from "@/components/admin/achievement-report";
 import { CompletionDashboard } from "@/components/admin/completion-dashboard";
 import { AuditLogView } from "@/components/admin/audit-log";
+import { AnalyticsDashboard } from "@/components/admin/analytics-dashboard";
 import { ArchitectureDiagram } from "@/components/admin/architecture-diagram";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -150,6 +151,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="completion" id="tab-completion" className="cursor-pointer text-xs sm:text-sm">
               Completion Dashboard
             </TabsTrigger>
+            <TabsTrigger value="analytics" id="tab-analytics" className="cursor-pointer text-xs sm:text-sm">
+              📊 Analytics
+            </TabsTrigger>
             <TabsTrigger value="audit" id="tab-audit" className="cursor-pointer text-xs sm:text-sm">
               Audit Trail
             </TabsTrigger>
@@ -285,6 +289,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="completion">
             <CompletionDashboard />
+          </TabsContent>
+
+          <TabsContent value="analytics">
+            <AnalyticsDashboard />
           </TabsContent>
 
           <TabsContent value="audit">

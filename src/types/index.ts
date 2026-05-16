@@ -6,6 +6,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  password: string;
   role: Role;
   managerId?: string; // For employees, the ID of their manager
   department?: string;

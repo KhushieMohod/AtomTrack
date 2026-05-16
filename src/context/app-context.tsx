@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from "react";
-import { User, GoalSheet, Role, SharedGoal, QuarterlyCheckIn, ManagerComment, Goal, Quarter, AuditLogEntry, AuditAction } from "@/types";
+import { User, GoalSheet, Role, SharedGoal, QuarterlyCheckIn, ManagerComment, Goal, Quarter, AuditLogEntry } from "@/types";
+import { Notification } from "@/lib/mock-data";
 import {
   MOCK_USERS,
   INITIAL_GOAL_SHEETS,
@@ -9,6 +10,7 @@ import {
   INITIAL_CHECK_INS,
   INITIAL_MANAGER_COMMENTS,
   INITIAL_AUDIT_LOG,
+  INITIAL_NOTIFICATIONS,
 } from "@/lib/mock-data";
 import { generateId } from "@/lib/validations";
 
@@ -19,6 +21,7 @@ interface AppState {
   currentUser: User | null;
   isAuthenticated: boolean;
   login: (role: Role) => void;
+  loginWithEmail: (email: string, password: string) => { success: boolean; error?: string };
   logout: () => void;
 
   // Goal Sheets
@@ -57,6 +60,12 @@ interface AppState {
   getAuditLogByEntity: (entityId: string) => AuditLogEntry[];
   getPostLockAuditLog: () => AuditLogEntry[];
 
+  // Notifications
+  notifications: Notification[];
+  markNotificationRead: (id: string) => void;
+  markAllNotificationsRead: () => void;
+  getUnreadCount: () => number;
+
   // Users
   getAllUsers: () => User[];
   getUserById: (id: string) => User | undefined;
@@ -73,6 +82,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [checkIns, setCheckIns] = useState<QuarterlyCheckIn[]>(INITIAL_CHECK_INS);
   const [managerComments, setManagerComments] = useState<ManagerComment[]>(INITIAL_MANAGER_COMMENTS);
   const [auditLog, setAuditLog] = useState<AuditLogEntry[]>(INITIAL_AUDIT_LOG);
+  const [notifications, setNotifications] = useState<Notification[]>(INITIAL_NOTIFICATIONS);
 
   // ── Auth ─────────────────────────────────────────────────────────────────
 
@@ -83,9 +93,37 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const loginWithEmail = useCallback((email: string, password: string): { success: boolean; error?: string } => {
+    const user = MOCK_USERS.find(
+      (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+    );
+    if (!user) {
+      return { success: false, error: "Invalid email or password. Please try again." };
+    }
+    setCurrentUser(user);
+    return { success: true };
+  }, []);
+
   const logout = useCallback(() => {
     setCurrentUser(null);
   }, []);
+
+  // ── Notifications ────────────────────────────────────────────────────────
+
+  const markNotificationRead = useCallback((id: string) => {
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+  }, []);
+
+  const markAllNotificationsRead = useCallback(() => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  }, []);
+
+  const getUnreadCount = useCallback(() => {
+    if (!currentUser) return 0;
+    return notifications.filter((n) => n.userId === currentUser.id && !n.read).length;
+  }, [notifications, currentUser]);
 
   // ── Audit Trail ──────────────────────────────────────────────────────────
 
@@ -140,7 +178,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const getSheetsByManager = useCallback(
     (managerId: string) => {
-      // Get all employees under this manager
       const managedEmployeeIds = MOCK_USERS
         .filter((u) => u.managerId === managerId)
         .map((u) => u.id);
@@ -168,7 +205,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSharedGoals((prev) =>
         prev.map((sg) => (sg.id === id ? { ...sg, ...updates } : sg))
       );
-      // Sync updates to all linked goal sheets
       if (updates.title || updates.target || updates.thrustArea || updates.unit) {
         setGoalSheets((prev) =>
           prev.map((sheet) => ({
@@ -201,8 +237,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const pushSharedGoalToSheets = useCallback(
     (sharedGoal: SharedGoal) => {
-      // For each assigned employee, add the shared goal to their active sheet
-      // or create a note that they should include it
       setGoalSheets((prev) => {
         return prev.map((sheet) => {
           if (
@@ -304,6 +338,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         currentUser,
         isAuthenticated: !!currentUser,
         login,
+        loginWithEmail,
         logout,
         goalSheets,
         addGoalSheet,
@@ -331,6 +366,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
         getAuditLog,
         getAuditLogByEntity,
         getPostLockAuditLog,
+        notifications,
+        markNotificationRead,
+        markAllNotificationsRead,
+        getUnreadCount,
         getAllUsers,
         getUserById,
       }}
