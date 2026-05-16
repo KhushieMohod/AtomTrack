@@ -60,7 +60,6 @@ Additional seeded employees: Arjun Mehta (`arjun@atomtrack.com`) and Neha Gupta 
 - **Achievement Report**: Export Planned vs. Actual data as CSV
 - **Completion Dashboard**: Real-time view of employee & manager check-in status
 - **Audit Trail**: Complete log of post-lock goal changes (who, what, when)
-- **Architecture Diagram**: Interactive system architecture visualization
 - **Error Handling**: Custom 404 page, global error boundary, graceful edge cases
 
 ### Bonus — Analytics Dashboard
@@ -90,14 +89,14 @@ src/
 │   ├── page.tsx            # Landing page & login
 │   ├── employee/           # Employee dashboard
 │   ├── manager/            # Manager dashboard
-│   ├── admin/              # Admin dashboard (8 tabs)
+│   ├── admin/              # Admin dashboard (7 tabs)
 │   ├── not-found.tsx       # Custom 404
 │   └── global-error.tsx    # Error boundary
 ├── components/
 │   ├── auth/               # Login page
 │   ├── layout/             # Header (with notifications), Logo
 │   ├── goals/              # Goal form, review, check-ins, scoring
-│   ├── admin/              # Reports, audit log, analytics, escalations, architecture
+│   ├── admin/              # Reports, audit log, analytics, escalations
 │   └── ui/                 # shadcn/ui primitives
 ├── context/                # React Context (global state)
 ├── hooks/                  # Auth guard hook

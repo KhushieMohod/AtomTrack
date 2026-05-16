@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Target } from "lucide-react";
+import Image from "next/image";
 
 interface AtomTrackLogoProps {
   size?: "sm" | "md" | "lg" | "xl";
@@ -10,10 +10,10 @@ interface AtomTrackLogoProps {
 }
 
 const SIZES = {
-  sm: { icon: 20, text: "text-base", container: "w-8 h-8" },
-  md: { icon: 22, text: "text-lg", container: "w-9 h-9" },
-  lg: { icon: 26, text: "text-xl", container: "w-10 h-10" },
-  xl: { icon: 30, text: "text-2xl", container: "w-12 h-12" },
+  sm: { imgH: "h-7", text: "text-base" },
+  md: { imgH: "h-8", text: "text-lg" },
+  lg: { imgH: "h-10", text: "text-xl" },
+  xl: { imgH: "h-12", text: "text-2xl" },
 };
 
 export function AtomTrackLogo({ size = "md", showText = true, className = "" }: AtomTrackLogoProps) {
@@ -21,12 +21,15 @@ export function AtomTrackLogo({ size = "md", showText = true, className = "" }: 
 
   return (
     <div className={`inline-flex items-center gap-2.5 ${className}`}>
-      {/* Icon */}
-      <div
-        className={`${s.container} rounded-lg bg-[#2563EB] flex items-center justify-center shrink-0`}
-      >
-        <Target className="text-white" style={{ width: s.icon, height: s.icon }} />
-      </div>
+      {/* Custom Logo Image */}
+      <Image
+        src="/logo.png"
+        alt="AtomTrack logo — soccer ball going into a net"
+        width={120}
+        height={120}
+        className={`${s.imgH} w-auto object-contain`}
+        priority
+      />
 
       {/* Text */}
       {showText && (

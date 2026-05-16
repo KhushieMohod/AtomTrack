@@ -12,57 +12,69 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  FileText,
+  CheckCircle2,
+  Lock,
+  RotateCcw,
+  Send,
+  BarChart3,
+  TrendingUp,
+  Building2,
+  Upload,
+  AlertTriangle,
+} from "lucide-react";
 
-const ACTION_CONFIG: Record<AuditAction, { label: string; color: string; icon: string }> = {
+const ACTION_CONFIG: Record<AuditAction, { label: string; color: string; Icon: React.ElementType }> = {
   goal_submitted: {
     label: "Goal Submitted",
     color: "bg-blue-50 text-blue-700 border-blue-200",
-    icon: "📝",
+    Icon: FileText,
   },
   goal_approved: {
     label: "Goal Approved",
     color: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    icon: "✅",
+    Icon: CheckCircle2,
   },
   goal_locked: {
     label: "Goal Locked",
     color: "bg-purple-50 text-purple-700 border-purple-200",
-    icon: "🔒",
+    Icon: Lock,
   },
   goal_reworked: {
     label: "Returned for Rework",
     color: "bg-amber-50 text-amber-700 border-amber-200",
-    icon: "🔄",
+    Icon: RotateCcw,
   },
   goal_resubmitted: {
     label: "Goal Resubmitted",
     color: "bg-blue-50 text-blue-700 border-blue-200",
-    icon: "📨",
+    Icon: Send,
   },
   checkin_created: {
     label: "Check-in Created",
     color: "bg-teal-50 text-teal-700 border-teal-200",
-    icon: "📊",
+    Icon: BarChart3,
   },
   checkin_updated: {
     label: "Check-in Updated",
     color: "bg-sky-50 text-sky-700 border-sky-200",
-    icon: "📈",
+    Icon: TrendingUp,
   },
   shared_goal_created: {
     label: "KPI Created",
     color: "bg-orange-50 text-orange-700 border-orange-200",
-    icon: "🏢",
+    Icon: Building2,
   },
   shared_goal_pushed: {
     label: "KPI Pushed",
     color: "bg-orange-50 text-orange-700 border-orange-200",
-    icon: "📤",
+    Icon: Upload,
   },
   post_lock_edit: {
     label: "Post-Lock Change",
     color: "bg-red-50 text-red-700 border-red-200",
-    icon: "⚠️",
+    Icon: AlertTriangle,
   },
 };
 
@@ -86,11 +98,11 @@ export function AuditLogView() {
     <div className="space-y-6">
       {/* Post-Lock Alert */}
       {postLockEntries.length > 0 && (
-        <Card className="border-red-200 bg-gradient-to-r from-red-50 to-orange-50/40">
+        <Card className="border-red-200 bg-red-50">
           <CardContent className="pt-4 pb-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-lg">⚠️</span>
+              <div className="flex items-center gap-3">
+                <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" />
                 <div>
                   <p className="text-sm font-semibold text-red-800">
                     {postLockEntries.length} post-lock change(s) detected
@@ -118,16 +130,16 @@ export function AuditLogView() {
       )}
 
       {/* Audit Log */}
-      <Card className="bg-white border border-slate-200">
+      <Card className="bg-white border border-[#E2E8F0]">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-lg">Audit Trail</CardTitle>
+              <CardTitle className="text-lg text-[#0F172A]">Audit Trail</CardTitle>
               <CardDescription>
                 Complete log of all goal-related changes across the organization.
               </CardDescription>
             </div>
-            <Badge variant="outline" className="text-xs bg-slate-50 border-slate-200 text-slate-500">
+            <Badge variant="outline" className="text-xs bg-slate-50 border-[#E2E8F0] text-[#475569]">
               {entries.length} entries
             </Badge>
           </div>
@@ -135,13 +147,11 @@ export function AuditLogView() {
         <CardContent className="pt-0">
           {entries.length === 0 ? (
             <div className="text-center py-12">
-              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
+              <div className="w-16 h-16 rounded-full bg-[#F8FAFC] flex items-center justify-center mx-auto mb-4">
+                <FileText className="w-8 h-8 text-[#CBD5E1]" />
               </div>
-              <p className="text-slate-400 text-lg">No audit entries found.</p>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-[#475569] text-lg">No audit entries found.</p>
+              <p className="text-[#94A3B8] text-sm mt-1">
                 {filter === "post_lock"
                   ? "No post-lock changes have been recorded."
                   : "Actions will appear here as users interact with the system."}
@@ -150,29 +160,32 @@ export function AuditLogView() {
           ) : (
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-[19px] top-0 bottom-0 w-px bg-slate-200" />
+              <div className="absolute left-[19px] top-0 bottom-0 w-px bg-[#E2E8F0]" />
 
               <div className="space-y-0">
                 {entries.map((entry, index) => {
                   const config = ACTION_CONFIG[entry.action];
                   const isPostLock = entry.action === "post_lock_edit";
+                  const IconComponent = config.Icon;
 
                   return (
                     <div
                       key={entry.id}
                       className={`relative flex gap-4 py-4 ${
-                        index < entries.length - 1 ? "border-b border-slate-50" : ""
+                        index < entries.length - 1 ? "border-b border-[#F1F5F9]" : ""
                       } ${isPostLock ? "bg-red-50/30 -mx-4 px-4 rounded-lg" : ""}`}
                     >
                       {/* Timeline dot */}
                       <div
-                        className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center text-sm shrink-0 ${
+                        className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
                           isPostLock
                             ? "bg-red-100 border-2 border-red-300"
-                            : "bg-white border-2 border-slate-200"
+                            : "bg-white border-2 border-[#E2E8F0]"
                         }`}
                       >
-                        {config.icon}
+                        <IconComponent className={`w-4 h-4 ${
+                          isPostLock ? "text-red-600" : "text-[#475569]"
+                        }`} />
                       </div>
 
                       {/* Content */}
@@ -193,7 +206,7 @@ export function AuditLogView() {
                                 {entry.userName}
                               </Badge>
                             </div>
-                            <p className="text-sm text-slate-700 mt-1.5">
+                            <p className="text-sm text-[#475569] mt-1.5">
                               {entry.description}
                             </p>
 
@@ -231,14 +244,14 @@ export function AuditLogView() {
 
                           {/* Timestamp */}
                           <div className="text-right shrink-0">
-                            <p className="text-xs text-slate-400">
+                            <p className="text-xs text-[#94A3B8]">
                               {new Date(entry.timestamp).toLocaleDateString("en-IN", {
                                 day: "numeric",
                                 month: "short",
                                 year: "numeric",
                               })}
                             </p>
-                            <p className="text-xs text-slate-300">
+                            <p className="text-xs text-[#CBD5E1]">
                               {new Date(entry.timestamp).toLocaleTimeString("en-IN", {
                                 hour: "2-digit",
                                 minute: "2-digit",

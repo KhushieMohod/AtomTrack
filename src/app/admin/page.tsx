@@ -10,7 +10,6 @@ import { CompletionDashboard } from "@/components/admin/completion-dashboard";
 import { AuditLogView } from "@/components/admin/audit-log";
 import { AnalyticsDashboard } from "@/components/admin/analytics-dashboard";
 import { EscalationsView } from "@/components/admin/escalations";
-import { ArchitectureDiagram } from "@/components/admin/architecture-diagram";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -161,9 +160,6 @@ export default function AdminDashboard() {
             <TabsTrigger value="audit" id="tab-audit" className="cursor-pointer text-xs sm:text-sm">
               Audit Trail
             </TabsTrigger>
-            <TabsTrigger value="architecture" id="tab-architecture" className="cursor-pointer text-xs sm:text-sm">
-              Architecture
-            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -269,7 +265,7 @@ export default function AdminDashboard() {
               <Card className="mt-6 bg-amber-50 border border-amber-200">
                 <CardContent className="pt-5 pb-4">
                   <p className="text-sm font-semibold text-amber-800">
-                    ⚠️ {rework} goal sheet(s) are currently returned for rework
+                    {rework} goal sheet(s) currently returned for rework
                   </p>
                   <p className="text-xs text-amber-600 mt-1">
                     These require attention from the respective employees.
@@ -305,10 +301,6 @@ export default function AdminDashboard() {
 
           <TabsContent value="audit">
             <AuditLogView />
-          </TabsContent>
-
-          <TabsContent value="architecture">
-            <ArchitectureDiagram />
           </TabsContent>
         </Tabs>
       </main>
