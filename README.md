@@ -1,10 +1,53 @@
-# AtomTrack — Performance Goal Management System
+# Project Name: AtomTrack
 
-A professional, enterprise-grade performance management web application built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS 4**. AtomTrack enables organizations to define, track, and approve employee objectives through a structured quarterly appraisal cycle.
+A professional, enterprise-grade performance management web application built with **React/Next.js**, **Node.js/Express**, and **PostgreSQL**. AtomTrack enables organizations to define, track, and approve employee objectives through a structured quarterly appraisal cycle.
 
 ---
 
-## Quick Start
+## Features
+
+### Authentication & Roles
+- **JWT Authentication** for secure sessions.
+- **Role-based access control** supporting Employee, Manager, and Admin levels.
+- Simulated Microsoft Entra ID (SSO) visual stub for enterprise integration.
+
+### Phase 1 — Goal Creation & Approval
+- **Goal Approval Workflow**: Employees create goal sheets with up to 8 goals.
+- **Strict Validation**: Total weightage = 100%, minimum 10% per goal.
+- **Manager Review**: Inline editing of targets and weightages; approve/lock goals or return for rework.
+- **Shared KPIs**: Admin can push departmental goals to employees.
+
+### Phase 2 — Achievement Tracking
+- **Quarterly Check-in Workflow**: Log actual achievement vs. planned targets.
+- **Progress Scoring**: Automated scoring with 4 formula types (Min, Max, Timeline, Zero-based).
+- **Manager Comments**: Structured feedback on quarterly performance.
+
+### Phase 3 — Reporting & Governance
+- **Audit Logging System**: Complete log of post-lock goal changes (who, what, when) and escalation events.
+- **Achievement Report**: Export Planned vs. Actual data as CSV.
+- **Completion Dashboard**: Real-time view of employee & manager check-in status.
+
+### Bonus Features
+- **Analytics Dashboard**: QoQ trends, Completion Heatmaps, and Manager Effectiveness Radar charts.
+- **Rule-Based Escalations**: Automated triggers for overdue goals or missed check-ins.
+- **Notifications Engine**: Simulated Teams/Email alerts with deep-linking functionality.
+
+---
+
+## Tech Stack
+
+| Component | Technology | Purpose |
+|-----------|---------|---------|
+| **Frontend** | React / Next.js (App Router), Tailwind CSS, shadcn/ui | User Interface & Client Logic |
+| **Backend** | Node.js, Express | REST API, Business Logic |
+| **Database** | PostgreSQL (Supabase / Neon) | Persistent Data Storage |
+| **Authentication**| JWT | Secure User Sessions |
+| **Visuals** | Recharts, Lucide React | Data Visualizations & Icons |
+| **Hosting** | Vercel (Frontend), Render (Backend) | Cloud Deployment |
+
+---
+
+## Setup Instructions
 
 ```bash
 # Clone the repository
@@ -36,120 +79,78 @@ Additional seeded employees: Arjun Mehta (`arjun@atomtrack.com`) and Neha Gupta 
 
 ---
 
-## Features
+## Architecture Overview
 
-### Authentication
-- Email / password credential login with route-guarded dashboards
-- Microsoft Entra ID (SSO) visual stub for enterprise integration
-- Role-based access control (Employee, Manager, Admin)
+AtomTrack is designed as a decoupled enterprise application, separating the highly interactive frontend from the secure backend API layer.
 
-### Phase 1 — Goal Creation & Approval
-- **Employee Portal**: Create and submit goal sheets with up to 8 goals
-- **Strict Validation**: Total weightage = 100%, minimum 10% per goal, max 8 goals
-- **Manager Review**: Inline editing of targets and weightages
-- **Approval Flow**: Approve & lock goals, or return for rework with feedback
-- **Shared KPIs**: Admin can push departmental goals to employees (read-only, weightage-only edits)
+```mermaid
+graph TD
+    %% Define Styles
+    classDef frontend fill:#000000,stroke:#fff,stroke-width:2px,color:#fff
+    classDef backend fill:#43A047,stroke:#fff,stroke-width:2px,color:#fff
+    classDef db fill:#0288D1,stroke:#fff,stroke-width:2px,color:#fff
+    classDef actors fill:#5E35B1,stroke:#fff,stroke-width:2px,color:#fff
+    
+    %% Actors
+    Emp["Employee"]:::actors
+    Mgr["Manager"]:::actors
+    Adm["Admin / HR"]:::actors
+    
+    %% Frontend
+    subgraph "Frontend Layer (Hosted on Vercel)"
+        UI["React / Next.js UI"]:::frontend
+        State["State Management & API Client"]:::frontend
+    end
+    
+    %% Backend
+    subgraph "Backend Layer (Hosted on Render)"
+        API["Node.js + Express API"]:::backend
+        Auth["JWT Authentication Service"]:::backend
+        WF["Workflow Engine<br/>(Goals, Check-ins, Escalations)"]:::backend
+        Audit["Audit Logging System"]:::backend
+    end
+    
+    %% Database
+    subgraph "Data Layer (Supabase / Neon)"
+        DB[("PostgreSQL Database")]:::db
+    end
 
-### Phase 2 — Achievement Tracking
-- **Quarterly Check-ins**: Log actual achievement vs. planned targets
-- **Progress Scoring**: Automated scoring with 4 formula types (Min, Max, Timeline, Zero-based)
-- **Manager Comments**: Structured feedback on quarterly performance
-- **Quarter Windows**: System-enforced active/inactive periods (July, October, January, March/April)
+    %% Relationships
+    Emp -->|HTTPS| UI
+    Mgr -->|HTTPS| UI
+    Adm -->|HTTPS| UI
+    
+    UI <--> State
+    State <-->|REST API Calls| API
+    
+    API <--> Auth
+    API <--> WF
+    API <--> Audit
+    
+    Auth <--> DB
+    WF <--> DB
+    Audit <--> DB
+```
 
-### Phase 3 — Reporting & Governance
-- **Achievement Report**: Export Planned vs. Actual data as CSV
-- **Completion Dashboard**: Real-time view of employee & manager check-in status
-- **Audit Trail**: Complete log of post-lock goal changes (who, what, when)
-- **Error Handling**: Custom 404 page, global error boundary, graceful edge cases
-
-### Bonus — Analytics Dashboard
-- **QoQ Goal Achievement Trends**: Line chart visualizing quarterly performance by department
-- **Completion Heatmap**: Color-coded grid of per-employee, per-quarter check-in completion rates
-- **Goal Distribution**: Donut chart (by Thrust Area) + horizontal bar chart (by Unit of Measurement)
-- **Manager Effectiveness Radar**: Radar chart comparing managers on approval rate, feedback quality, and team engagement
-
-### Bonus — Rule-Based Escalations
-- 3 automated escalation rules: Goal submission overdue, Manager approval ignored, Quarterly check-in missed
-- Visual escalation log showing the full chain-of-command (Employee → Manager → HR)
-- Summary dashboard with Critical, Active, and Escalated counts
-
-### Bonus — Notifications (Teams & Email Stub)
-- Global notification bell icon in the top navigation bar with unread count badge
-- Simulated Teams / Email / System alerts (e.g., "Reminder: Submit your Q1 check-in", "Goal Approved by Sakshi Kuber")
-- Deep-link routing from notification to the relevant goal sheet or dashboard
-- Mark as read / Mark all read functionality
+### Flow Highlights
+- **REST API Communication**: The React frontend securely communicates with the Node.js backend using standard REST principles and JSON payloads.
+- **JWT Authentication**: Upon login, a JWT is generated and securely passed on all subsequent API requests.
+- **Workflow Engine**: Enforces rules for the **Quarterly check-in workflow** and the **Goal approval workflow**, ensuring data integrity before writing to PostgreSQL.
+- **Audit Logging System**: The backend intercepts critical actions (e.g., manager approvals, target edits) and writes immutable logs to the database.
 
 ---
 
-## Architecture
+## Deployment Configuration
 
-```
-src/
-├── app/                    # Next.js App Router
-│   ├── page.tsx            # Landing page & login
-│   ├── employee/           # Employee dashboard
-│   ├── manager/            # Manager dashboard
-│   ├── admin/              # Admin dashboard (7 tabs)
-│   ├── not-found.tsx       # Custom 404
-│   └── global-error.tsx    # Error boundary
-├── components/
-│   ├── auth/               # Login page
-│   ├── layout/             # Header (with notifications), Logo
-│   ├── goals/              # Goal form, review, check-ins, scoring
-│   ├── admin/              # Reports, audit log, analytics, escalations
-│   └── ui/                 # shadcn/ui primitives
-├── context/                # React Context (global state)
-├── hooks/                  # Auth guard hook
-├── lib/                    # Mock data, scoring, validation, utils
-└── types/                  # TypeScript definitions
-```
+**Deploying the Frontend to Vercel:**
+1. Connect your GitHub repository to Vercel.
+2. Set the Root Directory to `AtomTrack` (where `package.json` is located).
+3. Ensure the Build Command is `npm run build` and Install Command is `npm install`.
 
----
-
-## Tech Stack
-
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| Next.js | 16.2.6 | Framework (App Router) |
-| React | 19.2.4 | UI Library |
-| TypeScript | 5.x | Type Safety |
-| Tailwind CSS | 4.x | Styling |
-| shadcn/ui | 4.7.0 | UI Components |
-| Recharts | 2.x | Data Visualizations |
-| Sonner | 2.x | Toast Notifications |
-| Lucide React | 1.x | Icons |
-
----
-
-## Deployment
-
-### Push to GitHub
-
-```bash
-cd AtomTrack
-git add -A
-git commit -m "feat: complete AtomTrack with auth, analytics, escalations, and enterprise UI"
-git branch -M main
-git remote add origin https://github.com/<your-username>/AtomTrack.git
-git push -u origin main
-```
-
-### Deploy to Vercel
-
-```bash
-# Option 1: Vercel CLI
-npm i -g vercel
-cd AtomTrack
-vercel --prod
-
-# Option 2: Connect via Vercel Dashboard
-# 1. Go to https://vercel.com/new
-# 2. Import your GitHub repository
-# 3. Set Root Directory to "AtomTrack"
-# 4. Click Deploy
-```
-
-> **Important**: Set the root directory to `AtomTrack` (the inner folder containing `package.json`) when deploying.
+**Deploying the Backend to Render:**
+1. Connect the repository to Render as a Web Service.
+2. Set the environment variables for `DATABASE_URL` and `JWT_SECRET`.
+3. Configure the start command as `npm start` or `node server.js`.
 
 ---
 
