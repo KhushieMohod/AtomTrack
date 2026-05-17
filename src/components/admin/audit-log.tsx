@@ -13,68 +13,68 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  HiDocumentText,
-  HiCheckCircle,
-  HiLockClosed,
-  HiArrowPath,
-  HiPaperAirplane,
-  HiChartBar,
-  HiArrowTrendingUp,
-  HiBuildingOffice2,
-  HiArrowUpTray,
-  HiExclamationTriangle,
-} from "react-icons/hi2";
+  FileText,
+  CheckCircle2,
+  Lock,
+  RotateCcw,
+  Send,
+  BarChart3,
+  TrendingUp,
+  Building2,
+  Upload,
+  AlertTriangle,
+} from "lucide-react";
 
 const ACTION_CONFIG: Record<AuditAction, { label: string; color: string; Icon: React.ElementType }> = {
   goal_submitted: {
     label: "Goal Submitted",
     color: "bg-blue-50 text-blue-700 border-blue-200",
-    Icon: HiDocumentText,
+    Icon: FileText,
   },
   goal_approved: {
     label: "Goal Approved",
     color: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    Icon: HiCheckCircle,
+    Icon: CheckCircle2,
   },
   goal_locked: {
     label: "Goal Locked",
     color: "bg-purple-50 text-purple-700 border-purple-200",
-    Icon: HiLockClosed,
+    Icon: Lock,
   },
   goal_reworked: {
     label: "Returned for Rework",
     color: "bg-amber-50 text-amber-700 border-amber-200",
-    Icon: HiArrowPath,
+    Icon: RotateCcw,
   },
   goal_resubmitted: {
     label: "Goal Resubmitted",
     color: "bg-blue-50 text-blue-700 border-blue-200",
-    Icon: HiPaperAirplane,
+    Icon: Send,
   },
   checkin_created: {
     label: "Check-in Created",
     color: "bg-teal-50 text-teal-700 border-teal-200",
-    Icon: HiChartBar,
+    Icon: BarChart3,
   },
   checkin_updated: {
     label: "Check-in Updated",
     color: "bg-sky-50 text-sky-700 border-sky-200",
-    Icon: HiArrowTrendingUp,
+    Icon: TrendingUp,
   },
   shared_goal_created: {
     label: "KPI Created",
     color: "bg-orange-50 text-orange-700 border-orange-200",
-    Icon: HiBuildingOffice2,
+    Icon: Building2,
   },
   shared_goal_pushed: {
     label: "KPI Pushed",
     color: "bg-orange-50 text-orange-700 border-orange-200",
-    Icon: HiArrowUpTray,
+    Icon: Upload,
   },
   post_lock_edit: {
     label: "Post-Lock Change",
     color: "bg-red-50 text-red-700 border-red-200",
-    Icon: HiExclamationTriangle,
+    Icon: AlertTriangle,
   },
 };
 
@@ -102,7 +102,7 @@ export function AuditLogView() {
           <CardContent className="pt-4 pb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <HiExclamationTriangle className="w-5 h-5 text-red-600 shrink-0" />
+                <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" />
                 <div>
                   <p className="text-sm font-semibold text-red-800">
                     {postLockEntries.length} post-lock change(s) detected
@@ -148,7 +148,7 @@ export function AuditLogView() {
           {entries.length === 0 ? (
             <div className="text-center py-12">
               <div className="w-16 h-16 rounded-full bg-[#F8FAFC] flex items-center justify-center mx-auto mb-4">
-                <HiDocumentText className="w-8 h-8 text-[#CBD5E1]" />
+                <FileText className="w-8 h-8 text-[#CBD5E1]" />
               </div>
               <p className="text-[#475569] text-lg">No audit entries found.</p>
               <p className="text-[#94A3B8] text-sm mt-1">

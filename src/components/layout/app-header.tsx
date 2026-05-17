@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAppState } from "@/context/app-context";
 import { AtomTrackLogo } from "@/components/layout/atomtrack-logo";
 import { Button } from "@/components/ui/button";
-import { HiBell, HiArrowRightOnRectangle, HiArrowTopRightOnSquare } from "react-icons/hi2";
+import { Bell, LogOut, ExternalLink } from "lucide-react";
 
 const ROLE_LABELS: Record<string, string> = {
   employee: "Employee",
@@ -69,7 +69,7 @@ export function AppHeader() {
               onClick={() => setShowNotifs((v) => !v)}
               aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
             >
-              <HiBell className="w-[18px] h-[18px]" />
+              <Bell className="w-[18px] h-[18px]" />
               {unreadCount > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 min-w-[18px] min-h-[18px] rounded-full bg-[#2563EB] text-white text-[10px] font-bold flex items-center justify-center">
                   {unreadCount > 9 ? "9+" : unreadCount}
@@ -138,7 +138,7 @@ export function AppHeader() {
                               via {CHANNEL_LABEL[n.channel] || n.channel}
                             </span>
                             {n.deepLink && (
-                              <HiArrowTopRightOnSquare className="w-3 h-3 text-[#CBD5E1]" />
+                              <ExternalLink className="w-3 h-3 text-[#CBD5E1]" />
                             )}
                           </div>
                         </div>
@@ -164,7 +164,7 @@ export function AppHeader() {
             onClick={handleLogout}
             className="text-[#475569] hover:text-[#0F172A] hover:bg-[#F1F5F9] cursor-pointer gap-1.5"
           >
-            <HiArrowRightOnRectangle className="w-4 h-4" />
+            <LogOut className="w-4 h-4" />
             <span className="hidden sm:inline">Sign out</span>
           </Button>
         </div>

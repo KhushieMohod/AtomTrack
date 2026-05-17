@@ -8,11 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { HiUser, HiUserGroup, HiShieldCheck, HiArrowRight } from "react-icons/hi2";
-import { HiOutlineChartBar } from "react-icons/hi";
-import { BsCalendar2Check, BsBullseye } from "react-icons/bs";
-import { AnalyticsDashboard } from "@/components/admin/analytics-dashboard";
-import { CompletionDashboard } from "@/components/admin/completion-dashboard";
+import { User, Users, Shield, ArrowRight, Target, BarChart3, CalendarCheck } from "lucide-react";
 
 const ROUTE_MAP: Record<string, string> = {
   employee: "/employee",
@@ -26,21 +22,21 @@ const ROLES = [
     email: "khushie@atomtrack.com",
     name: "Khushie Mohod",
     description: "Submit goals, log quarterly check-ins, and track your performance.",
-    Icon: HiUser,
+    Icon: User,
   },
   {
     role: "Reporting Manager",
     email: "sakshi@atomtrack.com",
     name: "Sakshi Kuber",
     description: "Review team goals, approve submissions, and provide feedback.",
-    Icon: HiUserGroup,
+    Icon: Users,
   },
   {
     role: "Admin / HR",
     email: "shlok@atomtrack.com",
     name: "Shlok Chaudhari",
     description: "Organization-wide reporting, KPI management, and governance.",
-    Icon: HiShieldCheck,
+    Icon: Shield,
   },
 ];
 
@@ -128,15 +124,15 @@ export default function LoginPage() {
           </p>
           <div className="flex items-center justify-center gap-6 mt-8">
             <div className="flex items-center gap-2 text-sm text-[#475569]">
-              <BsBullseye className="w-4 h-4 text-[#2563EB]" />
+              <Target className="w-4 h-4 text-[#2563EB]" />
               Goal Sheets
             </div>
             <div className="flex items-center gap-2 text-sm text-[#475569]">
-              <BsCalendar2Check className="w-4 h-4 text-[#2563EB]" />
+              <CalendarCheck className="w-4 h-4 text-[#2563EB]" />
               Quarterly Check-ins
             </div>
             <div className="flex items-center gap-2 text-sm text-[#475569]">
-              <HiOutlineChartBar className="w-4 h-4 text-[#2563EB]" />
+              <BarChart3 className="w-4 h-4 text-[#2563EB]" />
               Analytics
             </div>
           </div>
@@ -176,7 +172,7 @@ export default function LoginPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-semibold text-[#0F172A]">{cred.role}</p>
-                      <HiArrowRight className={`w-4 h-4 transition-colors ${
+                      <ArrowRight className={`w-4 h-4 transition-colors ${
                         email === cred.email ? "text-[#2563EB]" : "text-[#CBD5E1] group-hover:text-[#475569]"
                       }`} />
                     </div>
@@ -295,34 +291,6 @@ export default function LoginPage() {
           </div>
         </div>
       </main>
-
-      {/* Analytics Preview Section */}
-      <section className="w-full py-16 bg-white border-t border-[#E2E8F0]" id="analytics">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-10 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A]">Organization Performance & Analytics</h2>
-            <p className="text-[#475569] mt-2 text-lg">Transparent view of our company-wide goal completion and effectiveness.</p>
-          </div>
-          
-          <div className="space-y-16">
-            <div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-6 flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
-                <HiOutlineChartBar className="w-6 h-6 text-[#2563EB]" />
-                Analytics Overview
-              </h3>
-              <AnalyticsDashboard />
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold text-[#0F172A] mb-6 flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
-                <BsCalendar2Check className="w-6 h-6 text-[#2563EB]" />
-                Completion Tracking
-              </h3>
-              <CompletionDashboard />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="border-t border-[#E2E8F0] bg-white py-4">

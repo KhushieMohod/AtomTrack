@@ -10,7 +10,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { HiExclamationTriangle, HiClock, HiArrowRight, HiUser, HiUserGroup, HiShieldCheck, HiCheckCircle, HiXCircle } from "react-icons/hi2";
+import {
+  AlertTriangle,
+  Clock,
+  ArrowRight,
+  User,
+  Users,
+  Shield,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
 
 type EscalationSeverity = "critical" | "warning" | "info";
 type EscalationStatus = "active" | "resolved" | "escalated";
@@ -210,7 +219,7 @@ export function EscalationsView() {
       <Card className="bg-white border border-[#E2E8F0]">
         <CardHeader>
           <CardTitle className="text-base font-semibold text-[#0F172A] flex items-center gap-2">
-            <HiExclamationTriangle className="w-4 h-4 text-[#475569]" />
+            <AlertTriangle className="w-4 h-4 text-[#475569]" />
             Active Escalation Rules
           </CardTitle>
           <CardDescription>
@@ -226,9 +235,9 @@ export function EscalationsView() {
               >
                 <div className="mt-0.5">
                   {rule.severity === "critical" ? (
-                    <HiXCircle className="w-4 h-4 text-red-500" />
+                    <XCircle className="w-4 h-4 text-red-500" />
                   ) : (
-                    <HiExclamationTriangle className="w-4 h-4 text-amber-500" />
+                    <AlertTriangle className="w-4 h-4 text-amber-500" />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -253,7 +262,7 @@ export function EscalationsView() {
       <Card className="bg-white border border-[#E2E8F0]">
         <CardHeader>
           <CardTitle className="text-base font-semibold text-[#0F172A] flex items-center gap-2">
-            <HiClock className="w-4 h-4 text-[#475569]" />
+            <Clock className="w-4 h-4 text-[#475569]" />
             Escalation Log
           </CardTitle>
           <CardDescription>
@@ -263,7 +272,7 @@ export function EscalationsView() {
         <CardContent>
           {escalations.length === 0 ? (
             <div className="text-center py-12">
-              <HiCheckCircle className="w-12 h-12 text-emerald-300 mx-auto mb-3" />
+              <CheckCircle2 className="w-12 h-12 text-emerald-300 mx-auto mb-3" />
               <p className="text-[#475569]">No escalations triggered.</p>
               <p className="text-sm text-[#94a3b8] mt-1">
                 All employees and managers are on track.
@@ -311,11 +320,11 @@ export function EscalationsView() {
                           <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#E2E8F0] bg-white">
                             <div className="w-6 h-6 rounded-full bg-[#F8FAFC] flex items-center justify-center">
                               {step.role === "Employee" ? (
-                                <HiUser className="w-3 h-3 text-[#2563EB]" />
+                                <User className="w-3 h-3 text-[#2563EB]" />
                               ) : step.role === "Manager" ? (
-                                <HiUserGroup className="w-3 h-3 text-[#7C3AED]" />
+                                <Users className="w-3 h-3 text-[#7C3AED]" />
                               ) : (
-                                <HiShieldCheck className="w-3 h-3 text-[#16A34A]" />
+                                <Shield className="w-3 h-3 text-[#16A34A]" />
                               )}
                             </div>
                             <div>
@@ -328,7 +337,7 @@ export function EscalationsView() {
                             </div>
                           </div>
                           {idx < esc.chain.length - 1 && (
-                            <HiArrowRight className="w-4 h-4 text-[#94a3b8] shrink-0" />
+                            <ArrowRight className="w-4 h-4 text-[#94a3b8] shrink-0" />
                           )}
                         </React.Fragment>
                       ))}
