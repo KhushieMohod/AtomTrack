@@ -91,7 +91,7 @@ export function ArchitectureDiagram() {
         <CardHeader className="bg-gradient-to-r from-slate-900 to-slate-800 text-white">
           <CardTitle className="text-lg">System Architecture</CardTitle>
           <CardDescription className="text-slate-300">
-            AtomTrack — Layered Architecture Diagram
+            Atom<span className="text-[#EF5354]">Track</span> — Layered Architecture Diagram
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-6 pb-6">
@@ -165,7 +165,7 @@ export function ArchitectureDiagram() {
         <CardHeader>
           <CardTitle className="text-lg">Technology Stack</CardTitle>
           <CardDescription>
-            Core technologies powering AtomTrack.
+            Core technologies powering Atom<span className="text-[#EF5354]">Track</span>.
           </CardDescription>
         </CardHeader>
         <CardContent>

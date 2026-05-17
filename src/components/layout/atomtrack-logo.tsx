@@ -24,7 +24,7 @@ export function AtomTrackLogo({ size = "md", showText = true, className = "" }: 
       {/* Custom Logo Image */}
       <Image
         src="/logo.png"
-        alt="AtomTrack logo — soccer ball going into a net"
+        alt="AtomTrack logo — atom symbol with upward-trending arrow"
         width={120}
         height={120}
         className={`${s.imgH} w-auto object-contain`}

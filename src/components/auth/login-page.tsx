@@ -106,12 +106,6 @@ export default function LoginPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between h-14 px-6">
           <AtomTrackLogo size="sm" />
           <div className="flex items-center gap-6 text-sm">
-            <a href="#about" className="text-[#475569] hover:text-[#0F172A] transition-colors">
-              About
-            </a>
-            <a href="#help" className="text-[#475569] hover:text-[#0F172A] transition-colors">
-              Help
-            </a>
             <a href="#login" className="text-[#2563EB] font-medium hover:text-[#1D4ED8] transition-colors">
               Login
             </a>
@@ -301,7 +295,7 @@ export default function LoginPage() {
       {/* Footer */}
       <footer className="border-t border-[#E2E8F0] bg-white py-4">
         <p className="text-center text-xs text-[#94A3B8]">
-          2026 AtomTrack. Performance Goal Management System.
+          2026 Atom<span className="text-[#EF5354]">Track</span>. Performance Goal Management System.
         </p>
       </footer>
     </div>
