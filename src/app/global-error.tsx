@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle } from "lucide-react";
+import { HiExclamationTriangle } from "react-icons/hi2";
 
 export default function GlobalError({
   error,
@@ -16,7 +16,7 @@ export default function GlobalError({
       <body className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4">
         <div className="text-center max-w-md">
           <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-6">
-            <AlertTriangle className="w-10 h-10 text-red-600" />
+            <HiExclamationTriangle className="w-10 h-10 text-red-600" />
           </div>
           <h1 className="text-2xl font-bold text-[#0F172A] mb-2">Something Went Wrong</h1>
           <p className="text-slate-500 text-sm leading-relaxed mb-6">
