@@ -115,17 +115,19 @@ export default function LoginPage() {
 
       {/* Main Content */}
       <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-12">
+        {/* Centered Hero Text */}
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h1 className="text-4xl font-bold text-[#0F172A] mb-4 tracking-tight">
+            Align Goals. Track Progress. Drive Performance.
+          </h1>
+          <p className="text-lg text-[#475569] leading-relaxed">
+            Enterprise performance management platform for goal alignment, quarterly tracking, and structured employee reviews.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: Role Cards */}
           <div>
-            <div className="mb-10">
-              <h1 className="text-4xl font-bold text-[#0F172A] mb-4 tracking-tight">
-                Align Goals. Track Progress. Drive Performance.
-              </h1>
-              <p className="text-lg text-[#475569] leading-relaxed">
-                Enterprise performance management platform for goal alignment, quarterly tracking, and structured employee reviews.
-              </p>
-            </div>
             <h2 id="about" className="text-lg font-semibold text-[#0F172A] mb-1">
               Choose a role to get started
             </h2>
