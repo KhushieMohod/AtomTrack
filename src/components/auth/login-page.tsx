@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Users, Shield, ArrowRight, Target, BarChart3, CalendarCheck } from "lucide-react";
+import { User, Users, Shield, ArrowRight } from "lucide-react";
 
 const ROUTE_MAP: Record<string, string> = {
   employee: "/employee",
