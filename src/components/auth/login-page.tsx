@@ -113,32 +113,6 @@ export default function LoginPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="w-full py-16 md:py-20 border-b border-[#E2E8F0] bg-white">
-        <div className="max-w-3xl mx-auto text-center px-6">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#0F172A] tracking-tight leading-tight">
-            Align Goals. Track Progress. Drive Performance.
-          </h1>
-          <p className="mt-4 text-base md:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            Enterprise performance management platform for goal alignment, quarterly tracking, and structured employee reviews.
-          </p>
-          <div className="flex items-center justify-center gap-6 mt-8">
-            <div className="flex items-center gap-2 text-sm text-[#475569]">
-              <Target className="w-4 h-4 text-[#2563EB]" />
-              Goal Sheets
-            </div>
-            <div className="flex items-center gap-2 text-sm text-[#475569]">
-              <CalendarCheck className="w-4 h-4 text-[#2563EB]" />
-              Quarterly Check-ins
-            </div>
-            <div className="flex items-center gap-2 text-sm text-[#475569]">
-              <BarChart3 className="w-4 h-4 text-[#2563EB]" />
-              Analytics
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Main Content */}
       <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
