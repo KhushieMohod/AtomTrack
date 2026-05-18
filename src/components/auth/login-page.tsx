@@ -118,6 +118,14 @@ export default function LoginPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: Role Cards */}
           <div>
+            <div className="mb-10">
+              <h1 className="text-4xl font-bold text-[#0F172A] mb-4 tracking-tight">
+                Align Goals. Track Progress. Drive Performance.
+              </h1>
+              <p className="text-lg text-[#475569] leading-relaxed">
+                Enterprise performance management platform for goal alignment, quarterly tracking, and structured employee reviews.
+              </p>
+            </div>
             <h2 id="about" className="text-lg font-semibold text-[#0F172A] mb-1">
               Choose a role to get started
             </h2>

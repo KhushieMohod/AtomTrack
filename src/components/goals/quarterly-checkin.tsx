@@ -172,7 +172,7 @@ export function QuarterlyCheckInForm({ sheet }: QuarterlyCheckInFormProps) {
         {!isActiveQuarter && (
           <div className="flex items-center justify-center gap-2 py-4 bg-slate-50 rounded-lg border border-slate-200">
             <span className="text-sm text-slate-500">
-              🔒 {getQuarterLabel(selectedQuarter)} is not the active quarter. Updates are view-only.
+              {getQuarterLabel(selectedQuarter)} is not the active quarter. Updates are view-only.
             </span>
           </div>
         )}

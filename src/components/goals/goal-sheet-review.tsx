@@ -252,7 +252,7 @@ export function GoalSheetReview({ sheet, onApprove, onRework }: GoalSheetReviewP
           {isLocked && (
             <div className="flex items-center justify-center gap-2 py-3 bg-purple-50 rounded-lg border border-purple-100">
               <span className="text-purple-600 font-medium text-sm">
-                🔒 This goal sheet is locked and cannot be modified
+                This goal sheet is locked and cannot be modified
               </span>
             </div>
           )}

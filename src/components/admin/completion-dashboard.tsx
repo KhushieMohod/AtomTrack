@@ -170,7 +170,7 @@ export function CompletionDashboard() {
                         </Badge>
                       ) : hasLocked ? (
                         <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
-                          🔒 Locked
+                          Locked
                         </Badge>
                       ) : (
                         <Badge
